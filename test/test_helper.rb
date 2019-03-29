@@ -5,5 +5,5 @@ require "minitest/mock"
 require "mocha/setup"
 
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
-require "analyzer_orchestrator"
+require "orchestrator"
 

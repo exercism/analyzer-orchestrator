@@ -1,4 +1,4 @@
 require "test_helper"
 
-class AnalyzerOrchestratorTest < Minitest::Test
+class OrchestratorTest < Minitest::Test
 end

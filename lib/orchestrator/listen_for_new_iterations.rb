@@ -1,4 +1,4 @@
-module AnalyzerOrchestrator
+module Orchestrator
   class ListenForNewIterations
     include Mandate
 
