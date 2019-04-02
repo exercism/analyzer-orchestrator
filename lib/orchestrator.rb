@@ -2,6 +2,7 @@ require "mandate"
 require "propono"
 
 require "ext/propono"
+require "orchestrator/analyze_iteration"
 require "orchestrator/deploy_analyzer"
 require "orchestrator/publish_message"
 require "orchestrator/listen_for_new_iterations"
