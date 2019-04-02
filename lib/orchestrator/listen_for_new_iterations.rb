@@ -5,8 +5,9 @@ module Orchestrator
     def call
       client.listen(:new_iteration) do |message|
         track_slug = message[:track_slug]
-        iteration_id = message[:id]
-        p "Fire analyzer for #{track_slug} for Iteration##{iteration_id}"
+        exercise_slug = message[:exercise_slug]
+        iteration_id = message[:iteration_id]
+        AnalyzeIteration.(track_slug, exercise_slug, iteration_id)
       end
     end
 
