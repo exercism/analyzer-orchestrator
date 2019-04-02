@@ -4,8 +4,9 @@ module Orchestrator
 
     def call
       client.listen(:analyzer_ready_to_deploy) do |message|
+        track_slug = message[:track_slug]
         image_name = message[:image_name]
-        DeployAnalyzer.(image_name)
+        DeployAnalyzer.(track_slug, image_name)
       end
     end
 
