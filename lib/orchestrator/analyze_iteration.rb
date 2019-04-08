@@ -1,10 +1,17 @@
 module Orchestrator
+
+  VALID_ANALYZERS = [
+    ['ruby', 'two-fer']
+  ]
+
   class AnalyzeIteration
     include Mandate
 
     initialize_with :track_slug, :exercise_slug, :iteration_id
 
     def call
+      return unless VALID_ANALYZERS.include?([track_slug, exercise_slug])
+
       cmd = %Q{analyse_iteration #{track_slug} #{exercise_slug} #{s3_url}}
       if Kernel.system(cmd)
         # TODO: Handle success

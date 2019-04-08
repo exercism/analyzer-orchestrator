@@ -10,6 +10,12 @@ module Orchestrator
       Kernel.expects(:system).with(%Q{analyse_iteration ruby two-fer #{s3_url}})
       Orchestrator::AnalyzeIteration.("ruby", "two-fer", iteration_id)
     end
+
+    def test_fails_with_invalid_analyzers
+      Kernel.expects(:system).never
+      Orchestrator::AnalyzeIteration.("ruby", "foobar", SecureRandom.uuid)
+      Orchestrator::AnalyzeIteration.("foobar", "two-fer", SecureRandom.uuid)
+    end
   end
 end
 
