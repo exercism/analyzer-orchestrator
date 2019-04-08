@@ -16,9 +16,17 @@ module Orchestrator
       p "Running #{cmd}"
 
       if Kernel.system(cmd)
+        propono.publish(:iteration_analyzed, {
+          iteration_id: iteration_id,
+          status: :success
+        })
         # TODO: Handle success
       else
         # TODO: Handle failure
+        propono.publish( :iteration_analyzed, {
+          iteration_id: iteration_id,
+          status: :failure
+        })
       end
     end
 
@@ -35,6 +43,11 @@ module Orchestrator
     def s3_bucket
       creds = YAML::load(ERB.new(File.read(File.dirname(__FILE__) + "/../../config/secrets.yml")).result)[env]
       creds['aws_iterations_bucket']
+    end
+
+    memoize
+    def propono
+      Propono.configure_client
     end
   end
 end

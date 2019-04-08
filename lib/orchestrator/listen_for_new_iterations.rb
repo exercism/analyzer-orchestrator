@@ -3,7 +3,7 @@ module Orchestrator
     include Mandate
 
     def call
-      client.listen(:new_iteration) do |message|
+      propono.listen(:new_iteration) do |message|
         p "Received message"
         p message
 
@@ -15,8 +15,10 @@ module Orchestrator
     end
 
     private
-    def client
-      @client ||= Propono.configure_client
+
+    memoize
+    def propono
+      Propono.configure_client
     end
   end
 end
