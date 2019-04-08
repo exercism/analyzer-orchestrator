@@ -13,6 +13,8 @@ module Orchestrator
       return unless VALID_ANALYZERS.include?([track_slug, exercise_slug])
 
       cmd = %Q{analyse_iteration #{track_slug} #{exercise_slug} #{s3_url}}
+      p "Running #{cmd}"
+
       if Kernel.system(cmd)
         # TODO: Handle success
       else
