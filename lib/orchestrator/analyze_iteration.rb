@@ -13,25 +13,29 @@ module Orchestrator
     def call
       return unless VALID_ANALYZERS.include?([track_slug, exercise_slug])
 
-      cmd = %Q{analyse_iteration #{track_slug} #{exercise_slug} #{s3_url}}
+      cmd = %Q{analyse_iteration #{track_slug} #{exercise_slug} #{s3_url} #{system_identifier}}
       p "Running #{cmd}"
 
       if Kernel.system(cmd)
         propono.publish(:iteration_analyzed, {
           iteration_id: iteration_id,
-          status: :success
+          status: :success,
+          analysis: analysis_data
         })
-        # TODO: Handle success
       else
-        # TODO: Handle failure
         propono.publish( :iteration_analyzed, {
           iteration_id: iteration_id,
-          status: :failure
+          status: :fail
         })
       end
     end
 
     private
+
+    memoize
+    def system_identifier
+      "iteration_#{Time.now.to_i}_#{iteration_id}"
+    end
 
     def s3_url
       "s3://#{s3_bucket}/#{env}/iterations/#{iteration_id}"
@@ -46,10 +50,31 @@ module Orchestrator
       creds['aws_iterations_bucket']
     end
 
+    def analysis_data
+      location = "#{data_root_path}/#{track_slug}/runs/#{system_identifier}/iteration/analysis.json"
+      JSON.parse(File.read(location))
+    rescue
+      {}
+    end
+
+    def data_root_path
+      case env
+      when "production"
+        PRODUCTION_DATA_PATH
+      else
+        File.expand_path(File.dirname(__FILE__) + "/../../tmp/analysis_runtime/").tap do |path|
+          FileUtils.mkdir_p(path)
+        end
+      end
+    end
+
     memoize
     def propono
       Propono.configure_client
     end
+
+    PRODUCTION_DATA_PATH = "/opt/exercism/analysis_runtime".freeze
+    private_constant :PRODUCTION_DATA_PATH
   end
 end
 

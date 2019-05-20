@@ -26,6 +26,7 @@ GEM
       aws-sdk-sns
       aws-sdk-sqs
     rake (12.3.2)
+    timecop (0.9.1)
 
 PLATFORMS
   ruby
@@ -37,6 +38,7 @@ DEPENDENCIES
   mocha
   propono
   rake
+  timecop
 
 BUNDLED WITH
    2.0.1
