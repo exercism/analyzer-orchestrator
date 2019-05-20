@@ -1,10 +1,12 @@
 module Orchestrator
 
   VALID_ANALYZERS = [
-    ['ruby', 'two-fer'],
-    
     ['csharp', 'two-fer'],
-    ['csharp', 'gigasecond']
+    ['csharp', 'gigasecond'],
+    
+    ['go', 'two-fer'],
+    
+    ['ruby', 'two-fer'],
   ]
 
   class AnalyzeIteration
