@@ -23,7 +23,7 @@ module Orchestrator
         })
         Propono.expects(:configure_client).returns(propono)
 
-        Kernel.expects(:system).with(%Q{analyse_iteration ruby two-fer #{s3_url} iteration_#{Time.now.to_i}_#{iteration_id}}).returns(true)
+        Kernel.expects(:system).with(%Q{analyse_iteration ruby two-fer #{s3_url} #{Time.now.to_i}_#{iteration_id}}).returns(true)
         Orchestrator::AnalyzeIteration.("ruby", "two-fer", iteration_id)
       end
     end
@@ -40,7 +40,7 @@ module Orchestrator
         })
         Propono.expects(:configure_client).returns(propono)
 
-        Kernel.expects(:system).with(%Q{analyse_iteration ruby two-fer #{s3_url} iteration_#{Time.now.to_i}_#{iteration_id}}).returns(false)
+        Kernel.expects(:system).with(%Q{analyse_iteration ruby two-fer #{s3_url} #{Time.now.to_i}_#{iteration_id}}).returns(false)
         Orchestrator::AnalyzeIteration.("ruby", "two-fer", iteration_id)
       end
     end
