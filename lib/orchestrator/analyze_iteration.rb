@@ -34,7 +34,7 @@ module Orchestrator
 
     memoize
     def system_identifier
-      "iteration_#{Time.now.to_i}_#{iteration_id}"
+      "#{Time.now.to_i}_#{iteration_id}"
     end
 
     def s3_url
@@ -51,7 +51,7 @@ module Orchestrator
     end
 
     def analysis_data
-      location = "#{data_root_path}/#{track_slug}/runs/#{system_identifier}/iteration/analysis.json"
+      location = "#{data_root_path}/#{track_slug}/runs/iteration_#{system_identifier}/iteration/analysis.json"
       JSON.parse(File.read(location))
     rescue
       {}
