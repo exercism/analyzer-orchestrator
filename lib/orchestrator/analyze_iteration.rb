@@ -5,6 +5,7 @@ module Orchestrator
     ['csharp', 'gigasecond'],
     
     ['go', 'two-fer'],
+    ['go', 'hamming'],
     
     ['ruby', 'two-fer'],
   ]
