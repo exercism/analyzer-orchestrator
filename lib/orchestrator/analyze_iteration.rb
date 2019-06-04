@@ -8,6 +8,8 @@ module Orchestrator
     ['go', 'hamming'],
     
     ['ruby', 'two-fer'],
+    
+    ['typescript', 'two-fer'],
   ]
 
   class AnalyzeIteration
