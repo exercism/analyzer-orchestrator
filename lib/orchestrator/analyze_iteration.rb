@@ -8,6 +8,8 @@ module Orchestrator
     ['go', 'hamming'],
     
     ['ruby', 'two-fer'],
+    
+    ['rust', 'reverse-string'],
   ]
 
   class AnalyzeIteration
