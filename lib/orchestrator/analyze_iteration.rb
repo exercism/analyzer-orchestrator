@@ -7,6 +7,8 @@ module Orchestrator
     ['go', 'two-fer'],
     ['go', 'hamming'],
     
+    ['python', 'two-fer'],
+    
     ['ruby', 'two-fer'],
   ]
 
