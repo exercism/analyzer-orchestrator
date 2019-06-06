@@ -16,6 +16,8 @@ module Orchestrator
     ['ruby', 'two-fer'],
     
     ['rust', 'reverse-string'],
+    
+    ['typescript', 'two-fer']
   ]
 
   class AnalyzeIteration
