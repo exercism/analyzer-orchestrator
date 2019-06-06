@@ -9,6 +9,8 @@ module Orchestrator
     
     ['java', 'two-fer'],
     
+    ['javascript', 'two-fer'],
+    
     ['python', 'two-fer'],
     
     ['ruby', 'two-fer'],
