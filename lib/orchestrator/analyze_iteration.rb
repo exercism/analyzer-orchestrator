@@ -9,7 +9,11 @@ module Orchestrator
     
     ['java', 'two-fer'],
     
+    ['python', 'two-fer'],
+    
     ['ruby', 'two-fer'],
+    
+    ['rust', 'reverse-string'],
   ]
 
   class AnalyzeIteration
