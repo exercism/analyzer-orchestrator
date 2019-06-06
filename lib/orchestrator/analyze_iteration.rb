@@ -7,9 +7,15 @@ module Orchestrator
     ['go', 'two-fer'],
     ['go', 'hamming'],
     
+    ['java', 'two-fer'],
+    
     ['javascript', 'two-fer'],
     
+    ['python', 'two-fer'],
+    
     ['ruby', 'two-fer'],
+    
+    ['rust', 'reverse-string'],
   ]
 
   class AnalyzeIteration
