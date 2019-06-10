@@ -2,6 +2,7 @@ module Orchestrator
 
   VALID_ANALYZERS = [
     ['csharp', 'two-fer'],
+    ['csharp', 'leap'],
     ['csharp', 'gigasecond'],
     
     ['go', 'two-fer'],
