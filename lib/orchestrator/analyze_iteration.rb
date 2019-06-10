@@ -10,6 +10,7 @@ module Orchestrator
     ['java', 'two-fer'],
     
     ['javascript', 'two-fer'],
+    ['javascript', 'resistor-color'],
     
     ['python', 'two-fer'],
     
