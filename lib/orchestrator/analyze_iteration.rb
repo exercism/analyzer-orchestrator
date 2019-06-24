@@ -7,6 +7,7 @@ module Orchestrator
     
     ['go', 'two-fer'],
     ['go', 'hamming'],
+    ['go', 'raindrops'],
     
     ['java', 'two-fer'],
     
