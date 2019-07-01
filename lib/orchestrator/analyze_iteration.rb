@@ -19,6 +19,8 @@ module Orchestrator
     ['ruby', 'two-fer'],
     
     ['rust', 'reverse-string'],
+
+    ['scala', 'two-fer'],
     
     ['typescript', 'two-fer']
   ]
