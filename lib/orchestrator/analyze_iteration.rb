@@ -13,6 +13,7 @@ module Orchestrator
     
     ['javascript', 'two-fer'],
     ['javascript', 'resistor-color'],
+    ['javascript', 'gigasecond'],
     
     ['python', 'two-fer'],
     
