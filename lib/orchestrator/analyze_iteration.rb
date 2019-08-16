@@ -22,6 +22,7 @@ module Orchestrator
     ['rust', 'reverse-string'],
 
     ['scala', 'two-fer'],
+    ['scala', 'leap'],
     
     ['typescript', 'two-fer']
   ]
