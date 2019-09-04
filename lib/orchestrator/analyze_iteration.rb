@@ -10,6 +10,7 @@ module Orchestrator
     ['go', 'raindrops'],
     
     ['java', 'two-fer'],
+    ['java', 'hamming'],
     
     ['javascript', 'two-fer'],
     ['javascript', 'resistor-color'],
