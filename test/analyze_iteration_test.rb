@@ -46,9 +46,18 @@ module Orchestrator
     end
 
     def test_fails_with_invalid_analyzers
+      iteration_id = SecureRandom.uuid
+
       Kernel.expects(:system).never
-      Orchestrator::AnalyzeIteration.("ruby", "foobar", SecureRandom.uuid)
-      Orchestrator::AnalyzeIteration.("foobar", "two-fer", SecureRandom.uuid)
+
+      propono = mock
+      propono.expects(:publish).with(:iteration_analyzed, {
+        iteration_id: iteration_id,
+        status: :no_analyzer
+      })
+      Propono.expects(:configure_client).returns(propono)
+
+      Orchestrator::AnalyzeIteration.("ruby", "foobar", iteration_id)
     end
   end
 end

@@ -34,7 +34,12 @@ module Orchestrator
     initialize_with :track_slug, :exercise_slug, :iteration_id
 
     def call
-      return unless VALID_ANALYZERS.include?([track_slug, exercise_slug])
+      unless VALID_ANALYZERS.include?([track_slug, exercise_slug])
+        return propono.publish(:iteration_analyzed, {
+          iteration_id: iteration_id,
+          status: :no_analyzer
+        })
+      end
 
       cmd = %Q{analyse_iteration #{track_slug} #{exercise_slug} #{s3_url} #{system_identifier}}
       p "Running #{cmd}"
