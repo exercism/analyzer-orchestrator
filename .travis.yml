@@ -4,4 +4,6 @@ language: ruby
 cache: bundler
 rvm:
   - 2.4.4
-before_install: gem install bundler -v 2.0.1
+before_install:
+  - sudo cp config/secrets.yml.example config/secrets.yml
+  - gem install bundler -v 2.0.1
