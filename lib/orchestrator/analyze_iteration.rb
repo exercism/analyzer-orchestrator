@@ -14,6 +14,7 @@ module Orchestrator
 
     ['javascript', 'two-fer'],
     #['javascript', 'resistor-color'],
+    ['javascript', 'resistor-color-duo'],
     ['javascript', 'gigasecond'],
 
     ['python', 'two-fer'],
