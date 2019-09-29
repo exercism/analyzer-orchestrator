@@ -13,7 +13,7 @@ module Orchestrator
     ['java', 'hamming'],
 
     ['javascript', 'two-fer'],
-    #['javascript', 'resistor-color'],
+    ['javascript', 'resistor-color'],
     ['javascript', 'resistor-color-duo'],
     ['javascript', 'gigasecond'],
 
