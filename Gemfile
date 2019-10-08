@@ -13,3 +13,4 @@ gem 'timecop'
 
 gem 'mandate'
 gem 'propono'
+gem 'mysql2'

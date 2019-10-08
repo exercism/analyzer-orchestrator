@@ -1,23 +1,20 @@
 module Orchestrator
-
-  class AnalyzeIteration
+  class GenerateRepresentation
     include Mandate
 
-    initialize_with :track_slug, :exercise_slug, :iteration_id, :representation_results
+    initialize_with :track_slug, :exercise_slug, :iteration_id
 
     def call
-      if ANALYZERS.include?([track_slug, exercise_slug])
-        p "Running #{cmd}"
-        Kernel.system(cmd)
-      end
-      analysis_results || representation_results
+      p "Running #{cmd}"
+      Kernel.system(cmd)
+      representation
     end
 
     private
 
     memoize
     def cmd
-      %Q{analyse_iteration #{track_slug} #{exercise_slug} #{s3_url} #{system_identifier}}
+      %Q{generate_representation #{track_slug} #{exercise_slug} #{s3_url} #{system_identifier}}
     end
 
     memoize
@@ -38,9 +35,9 @@ module Orchestrator
       creds['aws_iterations_bucket']
     end
 
-    def analysis_results
-      location = "#{data_root_path}/#{track_slug}/runs/iteration_#{system_identifier}/iteration/analysis.json"
-      JSON.parse(File.read(location))
+    def representation
+      location = "#{data_root_path}/#{track_slug}/runs/iteration_#{system_identifier}/iteration/representation.txt"
+      File.read(location)
     rescue
       nil
     end
@@ -50,14 +47,13 @@ module Orchestrator
       when "production"
         PRODUCTION_DATA_PATH
       else
-        File.expand_path(File.dirname(__FILE__) + "/../../tmp/analysis_runtime/").tap do |path|
+        File.expand_path(File.dirname(__FILE__) + "/../../tmp/representation_runtime/").tap do |path|
           FileUtils.mkdir_p(path)
         end
       end
     end
 
-    PRODUCTION_DATA_PATH = "/opt/exercism/analysis_runtime".freeze
+    PRODUCTION_DATA_PATH = "/opt/exercism/representation_runtime".freeze
     private_constant :PRODUCTION_DATA_PATH
   end
 end
-

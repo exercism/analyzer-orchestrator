@@ -15,16 +15,9 @@ module Orchestrator
         FileUtils.mkdir_p(data_path)
         File.open(data_path + "/analysis.json", "w") { |f| f << analysis.to_json }
 
-        propono = mock
-        propono.expects(:publish).with(:iteration_analyzed, {
-          iteration_id: iteration_id,
-          status: :success,
-          analysis: analysis
-        })
-        Propono.expects(:configure_client).returns(propono)
-
         Kernel.expects(:system).with(%Q{analyse_iteration ruby two-fer #{s3_url} #{Time.now.to_i}_#{iteration_id}}).returns(true)
-        Orchestrator::AnalyzeIteration.("ruby", "two-fer", iteration_id)
+        actual = Orchestrator::AnalyzeIteration.("ruby", "two-fer", iteration_id, nil)
+        assert_equal analysis, actual
       end
     end
 
@@ -32,32 +25,20 @@ module Orchestrator
       Timecop.freeze do
         iteration_id = SecureRandom.uuid
         s3_url = "s3://test-exercism-iterations/test/iterations/#{iteration_id}"
-
-        propono = mock
-        propono.expects(:publish).with(:iteration_analyzed, {
-          iteration_id: iteration_id,
-          status: :fail
-        })
-        Propono.expects(:configure_client).returns(propono)
+        representation_results = mock
 
         Kernel.expects(:system).with(%Q{analyse_iteration ruby two-fer #{s3_url} #{Time.now.to_i}_#{iteration_id}}).returns(false)
-        Orchestrator::AnalyzeIteration.("ruby", "two-fer", iteration_id)
+        assert_equal(representation_results, Orchestrator::AnalyzeIteration.("ruby", "two-fer", iteration_id, representation_results))
       end
     end
 
     def test_fails_with_invalid_analyzers
       iteration_id = SecureRandom.uuid
+      representation_results = mock
 
       Kernel.expects(:system).never
 
-      propono = mock
-      propono.expects(:publish).with(:iteration_analyzed, {
-        iteration_id: iteration_id,
-        status: :no_analyzer
-      })
-      Propono.expects(:configure_client).returns(propono)
-
-      Orchestrator::AnalyzeIteration.("ruby", "foobar", iteration_id)
+      assert_equal(representation_results, Orchestrator::AnalyzeIteration.("ruby", "foobar", iteration_id, representation_results))
     end
   end
 end

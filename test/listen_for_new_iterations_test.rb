@@ -12,7 +12,7 @@ module Orchestrator
       propono_client.expects(:listen).with(:new_iteration).yields(message)
       Propono.expects(:configure_client).returns(propono_client)
 
-      AnalyzeIteration.expects(:call).with(track_slug, exercise_slug, iteration_id)
+      CheckIteration.expects(:call).with(track_slug, exercise_slug, iteration_id)
       ListenForNewIterations.()
     end
   end
