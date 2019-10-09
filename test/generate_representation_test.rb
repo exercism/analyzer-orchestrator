@@ -11,7 +11,7 @@ module Orchestrator
 
         s3_url = "s3://test-exercism-iterations/test/iterations/#{iteration_id}"
 
-        data_path = File.expand_path(File.dirname(__FILE__) + "/../tmp/representation_runtime/ruby/runs/iteration_#{Time.now.to_i}_#{iteration_id}/iteration/")
+        data_path = File.expand_path(File.dirname(__FILE__) + "/../tmp/representater/ruby/runs/iteration_#{Time.now.to_i}_#{iteration_id}/iteration/output/")
         FileUtils.mkdir_p(data_path)
         File.open(data_path + "/representation.txt", "w") { |f| f << representation }
 

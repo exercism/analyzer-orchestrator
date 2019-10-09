@@ -5,16 +5,29 @@ module Orchestrator
     initialize_with :track_slug, :exercise_slug, :iteration_id
 
     def call
-      p "Running #{cmd}"
-      Kernel.system(cmd)
+      invoke_generator!
       representation
     end
 
     private
 
+    def invoke_generator!
+      case env
+      when "development"
+        Bundler.with_clean_env do
+          cmd = %Q{cd ../representer-dev-invoker && bin/run.sh #{s3_path} #{data_path}}
+          p cmd
+          Kernel.system(cmd)
+        end
+      else
+        cmd = %Q{generate_representation #{track_slug} #{exercise_slug} #{s3_url} #{system_identifier}}
+        p "Running: cmd"
+        Kernel.system(cmd)
+      end
+    end
+
     memoize
     def cmd
-      %Q{generate_representation #{track_slug} #{exercise_slug} #{s3_url} #{system_identifier}}
     end
 
     memoize
@@ -23,7 +36,11 @@ module Orchestrator
     end
 
     def s3_url
-      "s3://#{s3_bucket}/#{env}/iterations/#{iteration_id}"
+      "s3://#{s3_bucket}/#{s3_path}"
+    end
+
+    def s3_path
+      "#{env}/iterations/#{iteration_id}"
     end
 
     def env
@@ -36,10 +53,14 @@ module Orchestrator
     end
 
     def representation
-      location = "#{data_root_path}/#{track_slug}/runs/iteration_#{system_identifier}/iteration/representation.txt"
+      location = "#{data_path}/iteration/output/representation.txt"
       File.read(location)
     rescue
       nil
+    end
+
+    def data_path
+      "#{data_root_path}/#{track_slug}/runs/iteration_#{system_identifier}"
     end
 
     def data_root_path
@@ -47,7 +68,7 @@ module Orchestrator
       when "production"
         PRODUCTION_DATA_PATH
       else
-        File.expand_path(File.dirname(__FILE__) + "/../../tmp/representation_runtime/").tap do |path|
+        File.expand_path(File.dirname(__FILE__) + "/../../tmp/representater/").tap do |path|
           FileUtils.mkdir_p(path)
         end
       end
