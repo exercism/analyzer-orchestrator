@@ -53,14 +53,15 @@ module Orchestrator
     end
 
     def representation
-      location = "#{data_path}/iteration/output/representation.txt"
+      #location = "#{data_path}/iteration/output/representation.txt"
+      location = "#{data_path}/representation.txt"
       File.read(location)
     rescue
       nil
     end
 
     def data_path
-      "#{data_root_path}/#{track_slug}/runs/iteration_#{system_identifier}"
+      "#{data_root_path}/#{track_slug}/runs/iteration_#{system_identifier}/iteration"
     end
 
     def data_root_path
