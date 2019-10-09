@@ -69,7 +69,7 @@ module Orchestrator
       when "production"
         PRODUCTION_DATA_PATH
       else
-        File.expand_path(File.dirname(__FILE__) + "/../../tmp/representater/").tap do |path|
+        File.expand_path(File.dirname(__FILE__) + "/../../tmp/representer/").tap do |path|
           FileUtils.mkdir_p(path)
         end
       end
