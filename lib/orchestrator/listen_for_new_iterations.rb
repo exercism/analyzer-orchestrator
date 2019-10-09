@@ -3,7 +3,7 @@ module Orchestrator
     include Mandate
 
     def call
-      propono.listen(:new_iteration) do |message|
+      propono.listen(:representation__new_iteration) do |message|
         p "Received message"
         p message
 

@@ -14,13 +14,13 @@ module Orchestrator
       )
 
       if results && !results.empty?
-        propono.publish(:iteration_representation_analyzed, {
+        propono.publish(:representation__iteration_analyzed, {
           iteration_id: iteration_id,
           status: :success,
           analysis: results
         })
       else
-       propono.publish( :iteration_representation_analyzed, {
+       propono.publish(:representation__iteration_analyzed, {
           iteration_id: iteration_id,
           status: :fail
         })
