@@ -54,7 +54,7 @@ module Orchestrator
 
     def representation
       #location = "#{data_path}/iteration/output/representation.txt"
-      location = "#{data_path}/input/representation.txt"
+      location = "#{data_path}/iteration/input/representation.txt"
       File.read(location)
     rescue
       nil
