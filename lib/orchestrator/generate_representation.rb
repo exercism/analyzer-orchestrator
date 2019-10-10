@@ -51,8 +51,7 @@ module Orchestrator
 
     def representation
       p "Getting representation"
-      #location = "#{data_path}/iteration/output/representation.txt"
-      location = "#{data_path}/iteration/input/representation.txt"
+      location = "#{data_path}/input/representation.txt"
       p "looking for representation.txt in #{location}"
       r = File.read(location)
       p "File read successfully"
@@ -77,7 +76,7 @@ module Orchestrator
       end
     end
 
-    PRODUCTION_DATA_PATH = "/opt/exercism/representation_runtime".freeze
+    PRODUCTION_DATA_PATH = "/opt/exercism/analysis_runtime".freeze
     private_constant :PRODUCTION_DATA_PATH
   end
 end
