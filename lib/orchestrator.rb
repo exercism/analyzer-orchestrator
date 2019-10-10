@@ -17,6 +17,8 @@ require "orchestrator/listen_for_analyzers_to_deploy"
 
 module Orchestrator
   def self.listen
+    STDOUT.sync = true
+
     t1 = Thread.new { ListenForNewIterations.() }
     t2 = Thread.new { ListenForAnalyzersToDeploy.() }
     [t1, t2].each(&:join)
