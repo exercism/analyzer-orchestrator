@@ -23,11 +23,8 @@ module Orchestrator
         cmd = %Q{generate_representation #{track_slug} #{exercise_slug} #{s3_url} #{system_identifier}}
         p "Running: #{cmd}"
         Kernel.system(cmd)
+        p "Command ran"
       end
-    end
-
-    memoize
-    def cmd
     end
 
     memoize
@@ -53,6 +50,7 @@ module Orchestrator
     end
 
     def representation
+      p "Getting representation"
       #location = "#{data_path}/iteration/output/representation.txt"
       location = "#{data_path}/iteration/input/representation.txt"
       p "looking for representation.txt in #{location}"
