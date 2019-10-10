@@ -16,12 +16,12 @@ module Orchestrator
       when "development"
         Bundler.with_clean_env do
           cmd = %Q{cd ../representer-dev-invoker && bin/run.sh #{s3_path} #{data_path}}
-          p cmd
+          p "Running: #{cmd}"
           Kernel.system(cmd)
         end
       else
         cmd = %Q{generate_representation #{track_slug} #{exercise_slug} #{s3_url} #{system_identifier}}
-        p "Running: cmd"
+        p "Running: #{cmd}"
         Kernel.system(cmd)
       end
     end
@@ -55,8 +55,12 @@ module Orchestrator
     def representation
       #location = "#{data_path}/iteration/output/representation.txt"
       location = "#{data_path}/iteration/input/representation.txt"
-      File.read(location)
+      p "looking for representation.txt in #{location}"
+      r = File.read(location)
+      p "File read successfully"
+      r
     rescue
+      p "Could not read file from there"
       nil
     end
 

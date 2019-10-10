@@ -9,7 +9,7 @@ module Orchestrator
       analysis = {"foo" => "bar"}
 
       propono = mock
-      propono.expects(:publish).with(:iteration_representation_analyzed, {
+      propono.expects(:publish).with(:representation__iteration_analyzed, {
         iteration_id: iteration_id,
         status: :success,
         analysis: analysis
@@ -25,7 +25,7 @@ module Orchestrator
       iteration_id = mock
 
       propono = mock
-      propono.expects(:publish).with(:iteration_representation_analyzed, {
+      propono.expects(:publish).with(:representation__iteration_analyzed, {
         iteration_id: iteration_id,
         status: :fail
       })
