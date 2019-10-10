@@ -1,31 +1,32 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    aws-eventstream (1.0.2)
-    aws-partitions (1.145.0)
-    aws-sdk-core (3.48.2)
+    aws-eventstream (1.0.3)
+    aws-partitions (1.221.0)
+    aws-sdk-core (3.68.1)
       aws-eventstream (~> 1.0, >= 1.0.2)
       aws-partitions (~> 1.0)
       aws-sigv4 (~> 1.1)
       jmespath (~> 1.0)
-    aws-sdk-sns (1.12.0)
-      aws-sdk-core (~> 3, >= 3.48.2)
+    aws-sdk-sns (1.19.0)
+      aws-sdk-core (~> 3, >= 3.61.1)
       aws-sigv4 (~> 1.1)
-    aws-sdk-sqs (1.13.0)
-      aws-sdk-core (~> 3, >= 3.48.2)
+    aws-sdk-sqs (1.22.0)
+      aws-sdk-core (~> 3, >= 3.61.1)
       aws-sigv4 (~> 1.1)
     aws-sigv4 (1.1.0)
       aws-eventstream (~> 1.0, >= 1.0.2)
     jmespath (1.4.0)
-    mandate (0.2.0)
+    mandate (0.3.0)
     metaclass (0.0.4)
     minitest (5.0.8)
-    mocha (1.8.0)
+    mocha (1.9.0)
       metaclass (~> 0.0.1)
-    propono (2.1.0)
+    mysql2 (0.5.2)
+    propono (2.2.0)
       aws-sdk-sns
       aws-sdk-sqs
-    rake (12.3.2)
+    rake (13.0.0)
     timecop (0.9.1)
 
 PLATFORMS
@@ -36,9 +37,10 @@ DEPENDENCIES
   mandate
   minitest (~> 5.0.8)
   mocha
+  mysql2
   propono
   rake
   timecop
 
 BUNDLED WITH
-   2.0.1
+   2.0.2

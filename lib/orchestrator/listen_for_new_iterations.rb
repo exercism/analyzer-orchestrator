@@ -3,14 +3,14 @@ module Orchestrator
     include Mandate
 
     def call
-      propono.listen(:new_iteration) do |message|
+      propono.listen(:representation__new_iteration) do |message|
         p "Received message"
         p message
 
         track_slug = message[:track_slug]
         exercise_slug = message[:exercise_slug]
         iteration_id = message[:iteration_id]
-        AnalyzeIteration.(track_slug, exercise_slug, iteration_id)
+        CheckIteration.(track_slug, exercise_slug, iteration_id)
       end
     end
 

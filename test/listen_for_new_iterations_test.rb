@@ -9,10 +9,10 @@ module Orchestrator
       iteration_id = SecureRandom.uuid
       message = {track_slug: track_slug, exercise_slug: exercise_slug, iteration_id: iteration_id}
       propono_client = mock
-      propono_client.expects(:listen).with(:new_iteration).yields(message)
+      propono_client.expects(:listen).with(:representation__new_iteration).yields(message)
       Propono.expects(:configure_client).returns(propono_client)
 
-      AnalyzeIteration.expects(:call).with(track_slug, exercise_slug, iteration_id)
+      CheckIteration.expects(:call).with(track_slug, exercise_slug, iteration_id)
       ListenForNewIterations.()
     end
   end

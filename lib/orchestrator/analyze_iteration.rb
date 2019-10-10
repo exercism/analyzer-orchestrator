@@ -1,65 +1,24 @@
 module Orchestrator
 
-  VALID_ANALYZERS = [
-    ['csharp', 'two-fer'],
-    ['csharp', 'leap'],
-    ['csharp', 'gigasecond'],
-
-    ['go', 'two-fer'],
-    ['go', 'hamming'],
-    ['go', 'raindrops'],
-
-    ['java', 'two-fer'],
-    ['java', 'hamming'],
-
-    ['javascript', 'two-fer'],
-    ['javascript', 'resistor-color'],
-    ['javascript', 'resistor-color-duo'],
-    ['javascript', 'gigasecond'],
-
-    ['python', 'two-fer'],
-
-    ['ruby', 'two-fer'],
-
-    ['rust', 'reverse-string'],
-
-    ['scala', 'two-fer'],
-    ['scala', 'leap'],
-
-    ['typescript', 'two-fer']
-  ]
-
   class AnalyzeIteration
     include Mandate
 
-    initialize_with :track_slug, :exercise_slug, :iteration_id
+    initialize_with :track_slug, :exercise_slug, :iteration_id, :representation_results
 
     def call
-      unless VALID_ANALYZERS.include?([track_slug, exercise_slug])
-        return propono.publish(:iteration_analyzed, {
-          iteration_id: iteration_id,
-          status: :no_analyzer
-        })
+      if ANALYZERS.include?([track_slug, exercise_slug])
+        p "Running #{cmd}"
+        Kernel.system(cmd)
       end
-
-      cmd = %Q{analyse_iteration #{track_slug} #{exercise_slug} #{s3_url} #{system_identifier}}
-      p "Running #{cmd}"
-
-      if Kernel.system(cmd)
-        propono.publish(:iteration_analyzed, {
-          iteration_id: iteration_id,
-          status: :success,
-          analysis: analysis_data
-        })
-      else
-        propono.publish( :iteration_analyzed, {
-          iteration_id: iteration_id,
-          status: :fail
-        })
-      end
+      analysis_results || representation_results
     end
 
     private
+
+    memoize
+    def cmd
+      %Q{analyse_iteration #{track_slug} #{exercise_slug} #{s3_url} #{system_identifier}}
+    end
 
     memoize
     def system_identifier
@@ -79,11 +38,11 @@ module Orchestrator
       creds['aws_iterations_bucket']
     end
 
-    def analysis_data
+    def analysis_results
       location = "#{data_root_path}/#{track_slug}/runs/iteration_#{system_identifier}/iteration/analysis.json"
       JSON.parse(File.read(location))
     rescue
-      {}
+      nil
     end
 
     def data_root_path
@@ -95,11 +54,6 @@ module Orchestrator
           FileUtils.mkdir_p(path)
         end
       end
-    end
-
-    memoize
-    def propono
-      Propono.configure_client
     end
 
     PRODUCTION_DATA_PATH = "/opt/exercism/analysis_runtime".freeze
